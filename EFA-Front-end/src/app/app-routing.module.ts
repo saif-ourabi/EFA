@@ -6,6 +6,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { ListCoursComponent } from './components/list-cours/list-cours.component';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent,pathMatch:'full' },
@@ -14,8 +15,8 @@ const routes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'lister', component: ListCoursComponent },
   { path: 'app', component: AppComponent },
-  {path:'footer',component:FooterComponent}
-
+  {path:'footer',component:FooterComponent},
+  {path:'admin',component:AdminComponent},
 ];
 
 @NgModule({
