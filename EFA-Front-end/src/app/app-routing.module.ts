@@ -14,7 +14,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomePageComponent },
   { path: 'lister', component: ListCoursComponent },
-  { path: 'app', component: AppComponent },
   {path:'footer',component:FooterComponent},
   {path:'admin',component:AdminComponent},
 ];
