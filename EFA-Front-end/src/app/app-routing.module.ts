@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ListCoursComponent } from './components/list-cours/list-cours.component';
 import { AppComponent } from './app.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent,pathMatch:'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomePageComponent },
   { path: 'lister', component: ListCoursComponent },
-  { path: 'app', component: AppComponent }
+  { path: 'app', component: AppComponent },
+  {path:'footer',component:FooterComponent}
 
 ];
 

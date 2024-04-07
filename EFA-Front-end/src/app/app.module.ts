@@ -11,6 +11,8 @@ import { NgToastModule } from 'ng-angular-popup';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ListCoursComponent } from './components/list-cours/list-cours.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { ListCoursComponent } from './components/list-cours/list-cours.component
     RegisterComponent,
     HomePageComponent,
     NavbarComponent,
-    ListCoursComponent
+    ListCoursComponent,
+    FooterComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
