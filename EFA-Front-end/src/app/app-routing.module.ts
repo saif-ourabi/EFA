@@ -4,8 +4,6 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ListCoursComponent } from './components/list-cours/list-cours.component';
-import { AppComponent } from './app.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [
@@ -14,8 +12,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomePageComponent },
   { path: 'lister', component: ListCoursComponent },
-  {path:'footer',component:FooterComponent},
-  {path:'admin',component:AdminComponent},
+  { path: 'admin', component: AdminComponent }
+
 ];
 
 @NgModule({
