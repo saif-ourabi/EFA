@@ -2,7 +2,9 @@ package com.example.efabackend.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 @Entity
@@ -19,10 +21,11 @@ public class file {
     private String imgFile;
 
 
+
     @Lob
     @Column(name = "urlFile", length = 429496729, columnDefinition = "LONGBLOB")
     private byte[] urlFile;
-
+   
     public file(Long id, String nameFile, String imgFile, byte[] urlFile) {
         this.id = id;
         this.nameFile = nameFile;
@@ -82,3 +85,4 @@ public class file {
                 '}';
     }
 }
+    
