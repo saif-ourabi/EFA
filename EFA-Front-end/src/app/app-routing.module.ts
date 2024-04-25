@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'lister', component: ListCoursComponent },
   { path: 'app', component: AppComponent },
-  {path:'quiz',component:QuizComponent}
+  { path: 'quiz', component: QuizComponent },
+  { path: 'quiz/:cour', component: QuizComponent }
 
 
 ];

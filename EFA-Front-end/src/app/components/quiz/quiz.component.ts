@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuizeService } from 'src/app/services/quize.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class QuizComponent implements OnInit{
   cour:String;
   score: number = 0;
   scoreShown: boolean = false;
-  constructor(private quiz:QuizeService,private router:Router){
+  constructor(private quiz:QuizeService,private router:Router,private route: ActivatedRoute){
    }
   ngOnInit(): void {
     this.quiz.geteQuiz().subscribe((rep)=>{
@@ -22,6 +22,9 @@ export class QuizComponent implements OnInit{
       this.matiere=rep.matiere
       this.cour=rep.cour;
     })
+    this.route.params.subscribe(params => {
+       this.cour = params['cour']; 
+    });
   }
   calculateScore(rep: string, nu: number): number {
     let note: number = 0; 
