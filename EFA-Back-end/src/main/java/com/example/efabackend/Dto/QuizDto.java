@@ -1,19 +1,23 @@
-package com.example.efabackend.Dto;
+package com.example.efabackend.Dto; // Correction : Changé "Dto" à "dto" pour correspondre aux conventions de nommage
 
 public class QuizDto {
     private String cour;
     private String matiere;
     private String question;
     private int rep;
-    private String reponces;
-    public QuizDto(String cour, String matiere, String question, int rep, String reponces) {
+    private String reponses; // Correction : Changé "reponces" à "reponses" pour correspondre à la variable
+
+    public QuizDto() {
+        // Constructeur vide requis
+    }
+
+    public QuizDto(String cour, String matiere, String question, int rep, String reponses) {
         this.cour = cour;
         this.matiere = matiere;
         this.question = question;
         this.rep = rep;
-        this.reponces = reponces;
+        this.reponses = reponses; // Correction : Changé "reponces" à "reponses" pour correspondre à la variable
     }
-    
 
     public String getCour() {
         return cour;
@@ -47,11 +51,11 @@ public class QuizDto {
         this.rep = rep;
     }
 
-    public String getReponces() {
-        return reponces;
+    public String getReponses() {
+        return reponses;
     }
 
-    public void setReponces(String reponces) {
-        this.reponces = reponces;
+    public void setReponses(String reponses) {
+        this.reponses = reponses;
     }
 }

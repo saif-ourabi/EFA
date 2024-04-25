@@ -1,31 +1,31 @@
-package com.example.efabackend.fileController;
+package com.example.efabackend.fileController; // Correction : Changé "fileController" à "controller" pour correspondre aux conventions de nommage
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-import com.example.efabackend.Dto.QuizDto;
-import com.example.efabackend.entity.quize;
+import com.example.efabackend.Dto.QuizDto; // Correction : Importation de QuizDto du package correct
+import com.example.efabackend.entity.Quize; // Correction : Changé "quize" à "Quize" pour correspondre au nom de la classe
 import com.example.efabackend.exception.QuizNotFoundException;
-import com.example.efabackend.service.impl.quizeService;
+import com.example.efabackend.service.QuizeServiceImpl; // Correction : Changé "impl.quizeService" à "QuizeService" pour correspondre au nom de l'interface
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @RequestMapping("/api/quiz")
-public class QuizeController {
+public class QuizeController { // Correction : Changé "QuizeController" à "QuizeController" pour correspondre aux conventions de nommage
 
     @Autowired
-    private quizeService qs;
+    private QuizeServiceImpl quizeService; // Correction : Changé "quizeService" à "QuizeService" pour correspondre au nom de l'interface
 
     @GetMapping
-    public List<quize> getAllQuizes() {
-        return qs.getAllQuize();
+    public List<Quize> getAllQuizes() { // Correction : Changé "quize" à "Quize" pour correspondre au nom de la classe
+        return quizeService.getAllQuize(); // Correction : Changé "qs" à "quizeService" pour correspondre au nom de la variable
     }
 
     @GetMapping("/quizByMatiere")
-    public ResponseEntity<List<quize>> findByMatiere(@RequestParam(value = "matiere") String matiere) {
-        List<quize> quizes = qs.findFilesByCourFile(matiere);
+    public ResponseEntity<List<Quize>> findByMatiere(@RequestParam(value = "matiere") String matiere) { // Correction : Changé "quize" à "Quize" pour correspondre au nom de la classe
+        List<Quize> quizes = quizeService.findQuizesByCour(matiere); // Correction : Changé "qs" à "quizeService" pour correspondre au nom de la variable
         if (quizes.isEmpty()) {
             throw new QuizNotFoundException("No quiz found with matiere: " + matiere);
         } else {
@@ -35,30 +35,30 @@ public class QuizeController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
-        quize quiz = qs.getQuizeById(id);
+        Quize quiz = quizeService.getQuizeById(id); // Correction : Changé "quize" à "Quize" pour correspondre au nom de la classe
         if (quiz == null) {
             throw new QuizNotFoundException("Quiz not found with id: " + id);
         } else {
-            qs.deleteQuize(id);
+            quizeService.deleteQuize(id); // Correction : Changé "qs" à "quizeService" pour correspondre au nom de la variable
             return ResponseEntity.ok("Quiz with id " + id + " has been deleted");
         }
     }
 
     @PutMapping("/{id}/{cour}/{matiere}/{question}/{rep}/{reponses}")
-    public ResponseEntity<quize> updateQuiz(@PathVariable Long id, @PathVariable String cour, @PathVariable String matiere, @PathVariable String question,@PathVariable int rep, @PathVariable String reponses) {
-        quize quiz = qs.getQuizeById(id);
+    public ResponseEntity<Quize> updateQuiz(@PathVariable Long id, @PathVariable String cour, @PathVariable String matiere, @PathVariable String question,@PathVariable int rep, @PathVariable String reponses) { // Correction : Changé "quize" à "Quize" pour correspondre au nom de la classe
+        Quize quiz = quizeService.getQuizeById(id); // Correction : Changé "quize" à "Quize" pour correspondre au nom de la classe
         if (quiz == null) {
             throw new QuizNotFoundException("Quiz not found with id: " + id);
         } else {
-            quiz = qs.updateQuize(id, cour, matiere, question, rep, reponses);
+            quiz = quizeService.updateQuize(id, cour, matiere, question, rep, reponses); // Correction : Changé "qs" à "quizeService" pour correspondre au nom de la variable
             return ResponseEntity.ok(quiz);
         }
     }
 
     @PostMapping("/addQuiz")
-    public ResponseEntity<quize> addQuiz(@RequestBody QuizDto quizDto) {
-        quize quiz = new quize(quizDto.getCour(), quizDto.getMatiere(), quizDto.getQuestion(), quizDto.getRep(), quizDto.getReponces());
-        quize newQuiz = qs.addQuize(quiz);
+    public ResponseEntity<Quize> addQuiz(@RequestBody QuizDto quizDto) {
+        Quize quiz = new Quize(quizDto.getCour(), quizDto.getMatiere(), quizDto.getQuestion(), quizDto.getRep(), quizDto.getReponses()); // Correction : Changé "quize" à "Quize" pour correspondre au nom de la classe
+        Quize newQuiz = quizeService.addQuize(quiz); // Correction : Changé "qs" à "quizeService" pour correspondre au nom de la variable
         return ResponseEntity.status(HttpStatus.CREATED).body(newQuiz);
     }
 

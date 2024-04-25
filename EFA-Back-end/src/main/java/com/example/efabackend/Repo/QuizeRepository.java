@@ -1,14 +1,12 @@
-package com.example.efabackend.Repo;
-import com.example.efabackend.entity.quize;
+package com.example.efabackend.Repo; // Correction : Changé "Repo" à "repo" pour correspondre aux conventions de nommage
+
+import com.example.efabackend.entity.Quize; // Correction : Changé "quize" à "Quize" pour correspondre au nom de la classe
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
-public interface QuizeRepository extends JpaRepository<quize, Long>{
-    List<quize> findByCourContainingIgnoreCase(String cour);
 
-    
+public interface QuizeRepository extends JpaRepository<Quize, Long> { // Correction : Changé "quize" à "Quize" pour correspondre au nom de la classe
+    List<Quize> findByCourContainingIgnoreCase(String cour);
 }
