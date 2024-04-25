@@ -16,6 +16,7 @@
             <h5 class="card-text">course name: {{c.nameFile}}</h5>
             <img src={{c.imgFile}} alt="file img">
             <a [href]="'data:application/pdf;base64,' + c.urlFile" download="PDF Title" (click)="downloadPDF(c)">Download PDF document</a>
+            
           </div>
         </div>
       </div>

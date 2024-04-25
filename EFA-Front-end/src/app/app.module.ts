@@ -12,6 +12,8 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ListCoursComponent } from './components/list-cours/list-cours.component';
 
+import { QuizComponent } from './components/quiz/quiz.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,8 @@ import { ListCoursComponent } from './components/list-cours/list-cours.component
     RegisterComponent,
     HomePageComponent,
     NavbarComponent,
-    ListCoursComponent
+    ListCoursComponent,
+    QuizComponent 
   ],
   imports: [
     BrowserModule,
