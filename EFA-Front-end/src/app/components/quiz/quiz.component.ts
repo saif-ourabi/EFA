@@ -9,12 +9,11 @@ import { QuizeService } from 'src/app/services/quize.service';
 })
 export class QuizComponent implements OnInit{
   quize=[];
+  repp=[];
   matiere: String;
   cour:String;
-  selectedMatiere: string;
-  selectedCour: string;
-  correctAnswers: number = 0;
-  totalQuestions: number = 0;
+  score: number = 0;
+  scoreShown: boolean = false;
   constructor(private quiz:QuizeService,private router:Router){
    }
   ngOnInit(): void {
@@ -24,29 +23,30 @@ export class QuizComponent implements OnInit{
       this.cour=rep.cour;
     })
   }
+  calculateScore(rep: string, nu: number): number {
+    let note: number = 0; 
+    const responses: string[] = rep.split('|'); 
+    for (let i = 0; i < responses.length; i++) {
+      if (i === nu) {
+        note++;
+      }
+    }
 
-  selectMatiere(matiere: string): void {
-    this.selectedMatiere = matiere;
+    console.log(note);
+    return note; 
   }
-
-  selectCour(cour: string): void {
-    this.selectedCour = cour;
-    this.correctAnswers = 0; 
-    this.totalQuestions = this.quize.filter(item => item.cour === this.selectedCour).length;
-  }
-
-  checkAnswer(selectedIndex: number, correctIndex: number): void {
-    if (selectedIndex === correctIndex) {
-      this.correctAnswers++;
+  checkAnswer(rep:number, selectedOptionIndex: number):void {
+    if (selectedOptionIndex === rep) {
+      console.log('Correct answer selected for question:');
+      this.score++; // Increment score if correct answer selected
+    } else {
+      console.log('Incorrect answer selected for question:');
     }
   }
-
-  calculateAverage(): number {
-    if (this.totalQuestions === 0) {
-      return 0;
-    }
-    return (this.correctAnswers / this.totalQuestions) * 100;
+  showScore(): void {
+    this.scoreShown = true; 
   }
 }
+
 
 
