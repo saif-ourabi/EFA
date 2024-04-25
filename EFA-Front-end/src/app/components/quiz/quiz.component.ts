@@ -31,7 +31,7 @@ export class QuizComponent implements OnInit{
 
   selectCour(cour: string): void {
     this.selectedCour = cour;
-    this.correctAnswers = 0; // Réinitialiser le compteur de réponses correctes
+    this.correctAnswers = 0; 
     this.totalQuestions = this.quize.filter(item => item.cour === this.selectedCour).length;
   }
 
