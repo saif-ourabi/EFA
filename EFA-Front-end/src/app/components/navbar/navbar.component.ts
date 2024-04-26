@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { Observable } from 'rxjs';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,13 +8,13 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  status: boolean = false;
-  constructor(private authService: AuthService) {}
+  isAuthenticated: boolean=false;
+  constructor(private authService: LoginService) {}
   ngOnInit(): void {
-    this.authService.updateAuthStatus();
-    this.authService.authStatus$.subscribe((status: boolean) => {
-      this.status = status;
-    });
+    this.authService.checkAuthStatus()
+    this.authService.authStatus$.subscribe((isLoggedIn: boolean) => {
+      this.isAuthenticated = isLoggedIn;
+    })
   }
 
   Logout():void{
