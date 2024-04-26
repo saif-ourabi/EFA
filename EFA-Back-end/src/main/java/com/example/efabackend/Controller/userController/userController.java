@@ -1,4 +1,4 @@
-package com.example.efabackend.userController;
+package com.example.efabackend.Controller.userController;
 import com.example.efabackend.Dto.LoginDto;
 import com.example.efabackend.Dto.RegisterDto;
 import com.example.efabackend.response.LoginResponse;

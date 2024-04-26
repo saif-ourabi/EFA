@@ -13,6 +13,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ListCoursComponent } from './components/list-cours/list-cours.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -33,9 +36,12 @@ import { AdminComponent } from './components/admin/admin.component';
     DropdownModule,
     HttpClientModule,
     NgToastModule,
+    PdfViewerModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
 }
+platformBrowserDynamic().bootstrapModule(AppModule);
