@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'lister', component: ListCoursComponent },
   { path: 'admin', component: AdminComponent },
-  { path: 'details', component: DetailsComponent }
+  { path: 'details/:id', component: DetailsComponent }
 
 
 ];
