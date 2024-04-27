@@ -3,12 +3,13 @@ package com.example.efabackend.entity;
 import jakarta.persistence.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 @Entity
 @Table(name = "file")
 
-public class file {
+public class File {
     @Id
     @Column(name = "id", length = 45)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +20,16 @@ public class file {
     private String imgFile;
 
 
+    @OneToMany(mappedBy = "file")
+    private List<Rating> ratings;
+
+
     @Lob
     @Column(name = "urlFile", length = 429496729, columnDefinition = "LONGBLOB")
     private byte[] urlFile;
 
-    public file(Long id, String nameFile, String imgFile, byte[] urlFile) {
+
+    public File(Long id, String nameFile, String imgFile, byte[] urlFile) {
         this.id = id;
         this.nameFile = nameFile;
         this.imgFile = imgFile;
@@ -31,13 +37,13 @@ public class file {
     }
 
 
-    public file( String nameFile, String imgFile, byte[] urlFile) {
+    public File(String nameFile, String imgFile, byte[] urlFile) {
         this.nameFile = nameFile;
         this.imgFile = imgFile;
         this.urlFile = urlFile;
     }
 
-    public file() {
+    public File() {
     }
 
     public Long getId() {

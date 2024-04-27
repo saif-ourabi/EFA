@@ -1,6 +1,7 @@
 package com.example.efabackend.Controller.userController;
 import com.example.efabackend.Dto.LoginDto;
 import com.example.efabackend.Dto.RegisterDto;
+import com.example.efabackend.entity.User;
 import com.example.efabackend.response.LoginResponse;
 import com.example.efabackend.response.RegisterResponse;
 import com.example.efabackend.service.JwtService;
@@ -32,6 +33,13 @@ public class userController {
         String username = "exampleUser";
         return JwtService.generateToken(username);
     }
+
+    @GetMapping("/email")
+    public User getUserByEmail(String email) {
+        return userservice.findbyEmail(email);
+    }
+
+
 
 
 }

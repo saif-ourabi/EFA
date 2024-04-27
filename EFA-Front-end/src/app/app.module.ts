@@ -16,6 +16,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DetailsComponent } from './components/details/details.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NavbarComponent,
     ListCoursComponent,
     FooterComponent,
-    AdminComponent
+    AdminComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,

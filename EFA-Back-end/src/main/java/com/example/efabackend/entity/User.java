@@ -2,6 +2,8 @@ package com.example.efabackend.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "User")
 
@@ -22,6 +24,9 @@ public class User {
 
     @Column(name = "role",length = 255)
     private String role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Rating> ratings;
 
 
     public User(long id, String email, String password, String name, String role) {

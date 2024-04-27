@@ -1,7 +1,7 @@
 package com.example.efabackend.service;
 
 import com.example.efabackend.Repo.FileRepository;
-import com.example.efabackend.entity.file;
+import com.example.efabackend.entity.File;
 import com.example.efabackend.exception.FileNotFoundException;
 import com.example.efabackend.service.impl.fileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +15,27 @@ public class FileServiceImpl implements fileService {
     private FileRepository fileRepository;
 
     @Override
-    public List<file> getAllFiles() {
+    public List<File> getAllFiles() {
         return fileRepository.findAll();
     }
 
     @Override
-    public file getFileById(Long id) {
+    public File getFileById(Long id) {
         return fileRepository.findById(id).orElse(null);
     }
 
     @Override
-    public List<file> findFilesByNameFile(String nameFile) {
+    public List<File> findFilesByNameFile(String nameFile) {
         return fileRepository.findBynameFileContainingIgnoreCase(nameFile);
     }
 
     @Override
-    public file updateFile(Long id, String nameFile, String imgFile, byte[] urlFile) {
-        Optional<file> optionalFile = fileRepository.findById(id);
+    public File updateFile(Long id, String nameFile, String imgFile, byte[] urlFile) {
+        Optional<File> optionalFile = fileRepository.findById(id);
         if (optionalFile.isEmpty()) {
             throw new FileNotFoundException("File with this id " + id + " not found");
         } else {
-            file file = optionalFile.get();
+            File file = optionalFile.get();
             file.setNameFile(nameFile);
             file.setImgFile(imgFile);
             file.setUrlFile(urlFile);
@@ -46,7 +46,7 @@ public class FileServiceImpl implements fileService {
 
     @Override
     public void deleteFile(Long id) {
-        Optional<file> optionalFile = fileRepository.findById(id);
+        Optional<File> optionalFile = fileRepository.findById(id);
         if (optionalFile.isEmpty()) {
             throw new FileNotFoundException("File with this id " + id + " not found");
         } else {
@@ -54,7 +54,7 @@ public class FileServiceImpl implements fileService {
         }
     }
     @Override
-    public file addFile(file file) {
+    public File addFile(File file) {
         return fileRepository.save(file);
     }
 

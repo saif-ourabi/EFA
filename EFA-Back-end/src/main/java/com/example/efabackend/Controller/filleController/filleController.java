@@ -1,7 +1,7 @@
 package com.example.efabackend.Controller.filleController;
 
 import com.example.efabackend.Dto.FileDto;
-import com.example.efabackend.entity.file;
+import com.example.efabackend.entity.File;
 import com.example.efabackend.service.impl.fileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,13 +18,13 @@ public class filleController {
     private fileService fs;
 
     @GetMapping
-    public List<file> getAllFiles() {
+    public List<File> getAllFiles() {
         return fs.getAllFiles();
     }
 
     @GetMapping("/filename")
-    public ResponseEntity<List<file>> findByFileName(@RequestParam(value = "nameFile") String nameFile) {
-        List<file> files = fs.findFilesByNameFile(nameFile);
+    public ResponseEntity<List<File>> findByFileName(@RequestParam(value = "nameFile") String nameFile) {
+        List<File> files = fs.findFilesByNameFile(nameFile);
         if (files.isEmpty()) {
             throw new FileNotFoundException("File not found with name: " + nameFile);
         } else {
@@ -34,7 +34,7 @@ public class filleController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
-        file file = fs.getFileById(id);
+        File file = fs.getFileById(id);
         if (file == null) {
             throw new FileNotFoundException("File not found with id: " + id);
         } else {
@@ -44,8 +44,8 @@ public class filleController {
     }
 
     @PutMapping("/{id}/{nameFile}/{imgFile}/{urlFile}")
-    public ResponseEntity<file> updateFile(@PathVariable Long id, @PathVariable String nameFile, @PathVariable String imgFile, @PathVariable String urlFile) {
-        file file = fs.getFileById(id);
+    public ResponseEntity<File> updateFile(@PathVariable Long id, @PathVariable String nameFile, @PathVariable String imgFile, @PathVariable String urlFile) {
+        File file = fs.getFileById(id);
         if (file == null) {
             throw new FileNotFoundException("File not found with id: " + id);
         } else {
@@ -55,9 +55,9 @@ public class filleController {
         }
     }
     @PostMapping("/addFile")
-    public ResponseEntity<file> addFile(@RequestBody FileDto file) {
-        file f = new file(file.getNameFile(),file.getImgFile(),file.getUrlFile());
-        file newFile = fs.addFile(f);
+    public ResponseEntity<File> addFile(@RequestBody FileDto file) {
+        File f = new File(file.getNameFile(),file.getImgFile(),file.getUrlFile());
+        File newFile = fs.addFile(f);
         return ResponseEntity.status(HttpStatus.CREATED).body(newFile);
     }
 

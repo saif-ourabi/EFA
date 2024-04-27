@@ -1,7 +1,7 @@
 package com.example.efabackend.service;
 import com.example.efabackend.Dto.LoginDto;
 import com.example.efabackend.Dto.RegisterDto;
-import com.example.efabackend.Repo.userRepo;
+import com.example.efabackend.Repo.UserRatingRepository;
 import com.example.efabackend.entity.User;
 import com.example.efabackend.response.LoginResponse;
 import com.example.efabackend.response.RegisterResponse;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class userImpl implements userService {
 
     @Autowired
-    private userRepo userRepo;
+    private UserRatingRepository userRepo;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -60,8 +60,10 @@ public class userImpl implements userService {
         }
     }
 
-
-
+    @Override
+    public User findbyEmail(String email) {
+        return  this.userRepo.findByEmail(email);
+    }
 
 
 }
