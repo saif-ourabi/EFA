@@ -13,10 +13,10 @@
       <div class="col-md-4 mb-3" *ngFor="let c of cours">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-text">course name: {{c.nameFile}}</h5>
-            <img src={{c.imgFile}} alt="file img">
+            <h5 class="card-text">course name: {{ c.nameFile }}</h5>
+            <img [src]="c.imgFile" alt="file img">
             <!-- Use routerLink to navigate to QuizComponent with cour parameter -->
-            <a [routerLink]="['/quiz', c.nameFile]">Quiz selon le cours {{c.nameFile}}</a>
+            <a [routerLink]="['/quiz', c.nameFile]">Quiz selon le cours {{ c.nameFile }}</a>
           </div>
         </div>
       </div>

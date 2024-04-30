@@ -12,8 +12,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomePageComponent },
   { path: 'lister', component: ListCoursComponent },
-  { path: 'quiz', component: QuizComponent },
-  { path: 'quiz/:cour', component: QuizComponent }
+  { path: 'quiz/:cour', component: QuizComponent } // Removed the redundant route without parameter
 ];
 
 @NgModule({
