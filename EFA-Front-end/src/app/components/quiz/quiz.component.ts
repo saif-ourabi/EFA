@@ -14,6 +14,8 @@ export class QuizComponent implements OnInit {
   cour: string;
   score: number = 0;
   scoreShown: boolean = false;
+  nb: number=0;
+  test:boolean =true;
 
   constructor(private quiz: QuizeService, private router: Router, private route: ActivatedRoute) { }
 
@@ -25,6 +27,7 @@ export class QuizComponent implements OnInit {
         this.quize = rep;
         this.matiere = rep.matiere;
         this.repp = this.fusion();
+        this.nb = this.repp.length;
       });
     });
   }
@@ -32,13 +35,32 @@ export class QuizComponent implements OnInit {
   fusion() {
     return this.quize.filter(q => q.cour === this.cour);
   }
-
+  resetAnswers(): void {
+    this.repp.forEach(question => {
+      question.selectedAnswerIndex = undefined; 
+    });
+    this.score = 0; 
+    this.scoreShown = false; 
+  }
+  cancelAnswer(radioBtn): void {
+    radioBtn.checked = false; 
+  }
+  resetRadioButtons(): void {
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach((button: HTMLInputElement) => {
+      button.checked = false;
+    });
+  }
   calculateScore(rep: string, nu: number): number {
     let note: number = 0;
     const responses: string[] = rep.split('|');
     for (let i = 0; i < responses.length; i++) {
       if (i === nu) {
         note++;
+        if(note==this.nb ){
+          this.test=false;
+          return note;
+        }
       } else {
         note--;
       }
@@ -48,10 +70,18 @@ export class QuizComponent implements OnInit {
   }
 
   checkAnswer(rep: number, selectedOptionIndex: number): void {
+
     if (selectedOptionIndex === rep) {
       console.log('Correct answer selected for question:');
-      this.score++; // Increment score if correct answer selected
+      if(this.score==this.nb ){
+        this.test=false;
+        
+      }
+      if(this.test==true){
+      this.score++; }
+      
     } else {
+      
       console.log('Incorrect answer selected for question:');
     }
   }
