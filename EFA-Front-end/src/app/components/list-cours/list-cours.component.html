@@ -15,8 +15,8 @@
           <div class="card-body">
             <h5 class="card-text">course name: {{c.nameFile}}</h5>
             <img src={{c.imgFile}} alt="file img">
-            <a [href]="'data:application/pdf;base64,' + c.urlFile" download="PDF Title" (click)="downloadPDF(c)">Download PDF document</a>
-            <a [routerLink]="['/quiz']" [queryParams]="{ cours: c.nameFile }"><h2>quiz selon le cour {{c.nameFile}}</h2> </a>
+            <!-- Use routerLink to navigate to QuizComponent with cour parameter -->
+            <a [routerLink]="['/quiz', c.nameFile]">Quiz selon le cours {{c.nameFile}}</a>
           </div>
         </div>
       </div>

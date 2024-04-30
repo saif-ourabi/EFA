@@ -16,22 +16,49 @@ export class QuizComponent implements OnInit{
   scoreShown: boolean = false;
   constructor(private quiz:QuizeService,private router:Router,private route: ActivatedRoute){
    }
-  ngOnInit(): void {
-    this.quiz.geteQuiz().subscribe((rep)=>{
-      this.quize=rep
-      this.matiere=rep.matiere
-      this.cour=rep.cour;
-    })
+  
+  
+   ngOnInit(): void {
     this.route.params.subscribe(params => {
-       this.cour = params['cour']; 
+      this.cour = params['cour']; 
+      console.log(this.cour);
+      this.quiz.geteQuiz().subscribe((rep) => {
+        this.quize = rep;
+        this.matiere = rep.matiere;
+        this.repp=this.fusion();
+      });
     });
   }
+  
+  fusion() {
+     let ra = [];
+     let j=0;
+    console.log(this.cour);
+    for (let i = 0; i < this.quize.length; i++) {
+      if (this.quize[i].cour === this.cour) {
+        console.log(this.quize[i].cour);
+        ra[j]=this.quize[i].cour;
+        j++;
+        console.log("j:",j);
+        console.log(ra[j]);
+      }
+    }
+    console.log("ra:", ra);
+    return ra;
+  }
+  
+  
+  
+
   calculateScore(rep: string, nu: number): number {
     let note: number = 0; 
     const responses: string[] = rep.split('|'); 
     for (let i = 0; i < responses.length; i++) {
       if (i === nu) {
         note++;
+      }
+      else{
+        note--;
       }
     }
 
