@@ -18,15 +18,19 @@ import com.example.efabackend.exception.NoChatExistsInTheRepository;
 import com.example.efabackend.service.impl.ChatService;
 
 @Service
-public class ChatServiceImpl implements ChatService{
-  @Autowired
+public class ChatServiceImpl implements ChatService {
+
+    @Autowired
     private ChatRepository chatRepository;
 
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
 
     @Override
-    public Chat addChat(Chat chat) {
+    public Chat addChat(Chat chat) throws ChatAlreadyExistException {
+        if (chatRepository.existsById(chat.getChatId())) {
+            throw new ChatAlreadyExistException();
+        }
         chat.setChatId(sequenceGeneratorService.generateSequence(Chat.SEQUENCE_NAME));
         return chatRepository.save(chat);
     }
@@ -46,68 +50,60 @@ public class ChatServiceImpl implements ChatService{
                 .orElseThrow(ChatNotFoundException::new);
     }
 
-    @Override
-    public HashSet<Chat> getChatByFirstUserName(String username) throws ChatNotFoundException {
-        HashSet<Chat> chats = chatRepository.findByFirstUserName(username);
-        if (chats.isEmpty()) {
-            throw new ChatNotFoundException();
-        }
-        return chats;
-    }
 
-    @Override
-    public HashSet<Chat> getChatBySecondUserName(String username) throws ChatNotFoundException {
-        HashSet<Chat> chats = chatRepository.findBySecondUserName(username);
-        if (chats.isEmpty()) {
-            throw new ChatNotFoundException();
-        }
-        return chats;
-    }
-
-    @Override
-    public HashSet<Chat> getChatByFirstUserNameOrSecondUserName(String username) throws ChatNotFoundException {
-        HashSet<Chat> chat = chatRepository.findByFirstUserName(username);
-        HashSet<Chat> chat1 = chatRepository.findBySecondUserName(username);
-        chat1.addAll(chat);
-        if (chat.isEmpty() && chat1.isEmpty()) {
-            throw new ChatNotFoundException();
-        } else if (chat1.isEmpty()) {
-            return chat;
-        } else {
-            return chat1;
-        }
-    }
-
-    @Override
-    public HashSet<Chat> getChatByFirstUserNameAndSecondUserName(String firstUserName, String secondUserName) throws ChatNotFoundException {
-        HashSet<Chat> chat = chatRepository.findByFirstUserNameAndSecondUserName(firstUserName,secondUserName);
-        HashSet<Chat> chat1 = chatRepository.findBySecondUserNameAndFirstUserName(firstUserName,secondUserName);
-        if (chat.isEmpty() && chat1.isEmpty()) {
-            throw new ChatNotFoundException();
-        } else if (chat.isEmpty()) {
-            return chat1;
-        } else {
-            return chat;
-        }
-    }
-
-    @Override
-    public Chat addMessage(Message add, int chatId) throws ChatNotFoundException {
-        Optional<Chat> chat = chatRepository.findById((long)chatId);
-        Chat abc = chat.orElseThrow(ChatNotFoundException::new);
-
-        if (abc.getMessageList() == null) {
-            List<Message> msg = new ArrayList<>();
-            msg.add(add);
-            abc.setMessageList(msg);
-        } else {
-            List<Message> rates = abc.getMessageList();
-            rates.add(add);
-            abc.setMessageList(rates);
-        }
-        return chatRepository.save(abc);
-    }
 
   
 
+    @Override
+    public Set<Chat> getChatsByFirstUserName(String username) throws ChatNotFoundException {
+        Set<Chat> chats = chatRepository.findByFirstUserName(username);
+        if (chats.isEmpty()) {
+            throw new ChatNotFoundException();
+        }
+        return chats;
+    }
+
+    @Override
+    public Set<Chat> getChatsBySecondUserName(String username) throws ChatNotFoundException {
+        Set<Chat> chats = chatRepository.findBySecondUserName(username);
+        if (chats.isEmpty()) {
+            throw new ChatNotFoundException();
+        }
+        return chats;
+    }
+    
+
+    @Override
+public Set<Chat> getChatsByUserName(String username) throws ChatNotFoundException {
+    Set<Chat> chatsByFirstUserName = chatRepository.findByFirstUserName(username);
+    Set<Chat> chatsBySecondUserName = chatRepository.findBySecondUserName(username);
+    Set<Chat> mergedChats = new HashSet<>(chatsByFirstUserName);
+    mergedChats.addAll(chatsBySecondUserName);
+    
+   
+    
+    return mergedChats;
+}
+
+    @Override
+    public Set<Chat> getChatsByFirstUserNameAndSecondUserName(String firstUserName, String secondUserName)
+            throws ChatNotFoundException {
+                Set<Chat> chat = chatRepository.findByFirstUserName(firstUserName);
+                Set<Chat> chat1 = chatRepository.findBySecondUserName(secondUserName);
+                chat1.addAll(chat);
+                return chat1;
+    }
+
+    @Override
+    public Chat addMessageToChat(Message message, int chatId) throws ChatNotFoundException {
+        Optional<Chat> chatOptional = chatRepository.findById((long) chatId);
+        Chat chat = chatOptional.orElseThrow(ChatNotFoundException::new);
+    
+        if (chat.getMessageList() == null) {
+            chat.setMessageList(new ArrayList<>());
+        }
+    
+        chat.getMessageList().add(message); // Ajouter le message à la liste de messages du chat
+        return chatRepository.save(chat);
+    }
 }

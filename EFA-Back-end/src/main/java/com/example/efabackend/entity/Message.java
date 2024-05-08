@@ -1,6 +1,6 @@
 package com.example.efabackend.entity;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,19 +15,32 @@ public class Message {
     private String senderEmail;
 
     @Column(name = "time")
-    private Date time = new Date(System.currentTimeMillis());
+    private LocalDateTime time;
 
     @Column(name = "reply_message", length = 255)
     private String replyMessage;
+    @ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "chat_id") // Assurez-vous que le nom de la colonne est correct
+private Chat chat;
+
+// Ajoutez les getters et les setters pour la propriété chat
+public Chat getChat() {
+    return chat;
+}
+
+public void setChat(Chat chat) {
+    this.chat = chat;
+}
 
     // Constructeurs
     public Message() {
+        this.time = LocalDateTime.now();
     }
 
-    public Message(String senderEmail, Date time, String replyMessage) {
+    public Message(String senderEmail, String replyMessage) {
         this.senderEmail = senderEmail;
-        this.time = time;
         this.replyMessage = replyMessage;
+        this.time = LocalDateTime.now();
     }
 
     // Getters and Setters
@@ -47,11 +60,11 @@ public class Message {
         this.senderEmail = senderEmail;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

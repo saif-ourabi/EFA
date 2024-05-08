@@ -1,12 +1,14 @@
 package com.example.efabackend.entity;
 
 import jakarta.persistence.*;
+
 @Entity
 @Table(name = "database_sequences")
 public class DatabaseSequence {
- @Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "seq")
     private int seq;
@@ -14,16 +16,15 @@ public class DatabaseSequence {
     public DatabaseSequence() {
     }
 
-    public DatabaseSequence(String id, int seq) {
-        this.id = id;
+    public DatabaseSequence(int seq) {
         this.seq = seq;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

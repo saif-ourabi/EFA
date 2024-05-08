@@ -16,7 +16,7 @@ import com.example.efabackend.service.SequenceGeneratorService;
 import com.example.efabackend.service.impl.ChatService;
 
 @RestController
-@RequestMapping("/chats")
+@RequestMapping("/api/chats")
 public class ChatController {
 
     @Autowired
@@ -55,7 +55,7 @@ public class ChatController {
     @GetMapping("/byUserName/{username}")
     public ResponseEntity<?> getChatByUserName(@PathVariable String username) {
         try {
-            Set<Chat> chats = chatService.getChatByFirstUserName(username);
+            Set<Chat> chats = chatService.getChatsByFirstUserName(username);
             return new ResponseEntity<>(chats, HttpStatus.OK);
         } catch (ChatNotFoundException e) {
             return new ResponseEntity<>("Chat Not Exists", HttpStatus.NOT_FOUND);
@@ -65,7 +65,7 @@ public class ChatController {
     @GetMapping("/byUserNames")
     public ResponseEntity<?> getChatByUserNames(@RequestParam("firstUserName") String firstUserName,
                                                 @RequestParam("secondUserName") String secondUserName) throws ChatNotFoundException {
-        Set<Chat> chats = chatService.getChatByFirstUserNameAndSecondUserName(firstUserName, secondUserName);
+        Set<Chat> chats = chatService.getChatsByFirstUserNameAndSecondUserName(firstUserName, secondUserName);
         return new ResponseEntity<>(chats, HttpStatus.OK);
     }
 
@@ -78,7 +78,7 @@ public class ChatController {
     @PutMapping("/message/{chatId}")
     public ResponseEntity<?> addMessage(@RequestBody Message message, @PathVariable int chatId) {
         try {
-            Chat updatedChat = chatService.addMessage(message, chatId);
+            Chat updatedChat = chatService.addMessageToChat(message, chatId);
             return new ResponseEntity<>(updatedChat, HttpStatus.OK);
         } catch (ChatNotFoundException e) {
             return new ResponseEntity<>("Chat Not Found", HttpStatus.NOT_FOUND);
