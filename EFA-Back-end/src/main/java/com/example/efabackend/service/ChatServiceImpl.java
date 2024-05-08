@@ -19,8 +19,7 @@ import com.example.efabackend.service.impl.ChatService;
 
 @Service
 public class ChatServiceImpl implements ChatService {
-
-    @Autowired
+@Autowired
     private ChatRepository chatRepository;
 
     @Autowired

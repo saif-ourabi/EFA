@@ -10,7 +10,7 @@ public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_id")
-    private int chatId;
+    private Long chatId;
 
     @Column(name = "first_user_name", length = 255)
     private String firstUserName;
@@ -21,29 +21,23 @@ public class Chat {
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Message> messageList;
 
-    // Constructors
+    // Constructeurs
     public Chat() {
     }
 
-    public Chat(int chatId, String firstUserName, String secondUserName, List<Message> messageList) {
-        this.chatId = chatId;
-        this.firstUserName = firstUserName;
-        this.secondUserName = secondUserName;
-        this.messageList = messageList;
-    }
-    public Chat( String firstUserName, String secondUserName, List<Message> messageList) {
+    public Chat(String firstUserName, String secondUserName, List<Message> messageList) {
         this.firstUserName = firstUserName;
         this.secondUserName = secondUserName;
         this.messageList = messageList;
     }
 
     // Getters and Setters
-    public int getChatId() {
+    public Long getChatId() {
         return chatId;
     }
 
-    public void setChatId(int id) {
-        this.chatId=id;
+    public void setChatId(int i) {
+        this.chatId = i;
     }
 
     public String getFirstUserName() {
@@ -70,7 +64,7 @@ public class Chat {
         this.messageList = messageList;
     }
 
-    // toString method
+    // Méthode toString()
     @Override
     public String toString() {
         return "Chat{" +

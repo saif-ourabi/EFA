@@ -20,7 +20,7 @@ public class Message {
     @Column(name = "reply_message", length = 255)
     private String replyMessage;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "chat_id") // Assurez-vous que le nom de la colonne est correct
     private Chat chat;
 
@@ -45,45 +45,6 @@ public class Message {
     }
 
     // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSenderEmail() {
-        return senderEmail;
-    }
-
-    public void setSenderEmail(String senderEmail) {
-        this.senderEmail = senderEmail;
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
-
-    public String getReplyMessage() {
-        return replyMessage;
-    }
-
-    public void setReplyMessage(String replyMessage) {
-        this.replyMessage = replyMessage;
-    }
-
-    public Chat getChat() {
-        return chat;
-    }
-
-    public void setChat(Chat chat) {
-        this.chat = chat;
-    }
 
     // Méthode toString()
     @Override
@@ -93,6 +54,7 @@ public class Message {
                 ", senderEmail='" + senderEmail + '\'' +
                 ", time=" + time +
                 ", replyMessage='" + replyMessage + '\'' +
+                ", chat=" + chat +
                 '}';
     }
 }
