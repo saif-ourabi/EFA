@@ -30,14 +30,26 @@ public class userController {
     }
     @GetMapping("/generateToken")
     public String generateToken() {
-        String username = "exampleUser";
-        return JwtService.generateToken(username);
+        String email = "exampleUser@gmail.com";
+        return JwtService.generateToken(email);
     }
 
     @GetMapping("/email")
     public User getUserByEmail(String email) {
         return userservice.findbyEmail(email);
     }
+
+    @GetMapping("/decodeToken")
+    public String decodeToken(@RequestParam String token) {
+        return JwtService.decodeToken(token);
+    }
+
+    @GetMapping("/verify")
+    public boolean verify(@RequestParam String token) {
+        return JwtService.isValidToken(token);
+    }
+
+
 
 
 

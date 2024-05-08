@@ -13,14 +13,14 @@ import { RatingService } from 'src/app/services/rating.service';
 })
 export class ListCoursComponent implements OnInit {
   cours = [];
-  pdfurl="https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf"
+  pdfurl=""
   feedbackform:FormGroup
   constructor(private course: CoursService, private toast: NgToastService, private router: Router,private modalservice: NgbModal,private formBuilder: FormBuilder,private rate:RatingService) {
     this.feedbackform = this.formBuilder.group({
       fileId: ['', Validators.required],
       stars: [, [Validators.required]],
       description: ['', Validators.required],
-      email: ['ourabisaif48@gmail.com', Validators.required],
+      email: ["ourabisaifallah@gmail.com", Validators.required]
     });
 
   }
@@ -70,10 +70,14 @@ export class ListCoursComponent implements OnInit {
     {
       this.rate.addRating(this.feedbackform.value).subscribe((rep)=>
       {
+        this.popupview1.nativeElement()
         console.log(this.feedbackform.value)
         console.log(rep)
       })
     }
   }
-
+  updateStars(stars: number) {
+    this.feedbackform.get('stars').setValue(stars);
+  }
+  
 }

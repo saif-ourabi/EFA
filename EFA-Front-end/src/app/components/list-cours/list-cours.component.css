@@ -7,3 +7,26 @@ div.flex.items-center.mt-4 {
 }
 
 
+.star-rating {
+  display: inline-block;
+  font-size: 0; /* Hide the default radio buttons */
+}
+
+.star-rating input[type="radio"] {
+  display: none; /* Hide the default radio buttons */
+}
+
+.star-rating label {
+  font-size: 30px; /* Adjust size of star icons */
+  cursor: pointer;
+  float: right; /* Change float direction to right */
+}
+
+.star-rating label:before {
+  content: '★';
+  padding: 5px;
+}
+
+.star-rating input[type="radio"]:checked ~ label:before {
+  color: gold; /* Change color of selected stars */
+}
