@@ -19,28 +19,29 @@ public class Message {
 
     @Column(name = "reply_message", length = 255)
     private String replyMessage;
+    
     @ManyToOne(fetch = FetchType.LAZY)
-@JoinColumn(name = "chat_id") // Assurez-vous que le nom de la colonne est correct
-private Chat chat;
+    @JoinColumn(name = "chat_id") // Assurez-vous que le nom de la colonne est correct
+    private Chat chat;
 
-// Ajoutez les getters et les setters pour la propriété chat
-public Chat getChat() {
-    return chat;
-}
-
-public void setChat(Chat chat) {
-    this.chat = chat;
-}
-
-    // Constructeurs
+    // Constructeur par défaut
     public Message() {
         this.time = LocalDateTime.now();
     }
 
+    // Constructeur avec les champs senderEmail et replyMessage
     public Message(String senderEmail, String replyMessage) {
         this.senderEmail = senderEmail;
         this.replyMessage = replyMessage;
         this.time = LocalDateTime.now();
+    }
+
+    // Constructeur avec tous les champs sauf l'ID (généré automatiquement)
+    public Message(String senderEmail, LocalDateTime time, String replyMessage, Chat chat) {
+        this.senderEmail = senderEmail;
+        this.time = time;
+        this.replyMessage = replyMessage;
+        this.chat = chat;
     }
 
     // Getters and Setters
@@ -74,6 +75,14 @@ public void setChat(Chat chat) {
 
     public void setReplyMessage(String replyMessage) {
         this.replyMessage = replyMessage;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 
     // Méthode toString()

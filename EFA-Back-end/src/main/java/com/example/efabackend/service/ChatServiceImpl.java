@@ -28,7 +28,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Chat addChat(Chat chat) throws ChatAlreadyExistException {
-        if (chatRepository.existsById(chat.getChatId())) {
+        if (chatRepository.existsById((long) chat.getChatId())) {
             throw new ChatAlreadyExistException();
         }
         chat.setChatId(sequenceGeneratorService.generateSequence(Chat.SEQUENCE_NAME));

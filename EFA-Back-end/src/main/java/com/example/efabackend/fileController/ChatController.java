@@ -64,9 +64,13 @@ public class ChatController {
 
     @GetMapping("/byUserNames")
     public ResponseEntity<?> getChatByUserNames(@RequestParam("firstUserName") String firstUserName,
-                                                @RequestParam("secondUserName") String secondUserName) throws ChatNotFoundException {
-        Set<Chat> chats = chatService.getChatsByFirstUserNameAndSecondUserName(firstUserName, secondUserName);
-        return new ResponseEntity<>(chats, HttpStatus.OK);
+                                                @RequestParam("secondUserName") String secondUserName) {
+        try {
+            Set<Chat> chats = chatService.getChatsByFirstUserNameAndSecondUserName(firstUserName, secondUserName);
+            return new ResponseEntity<>(chats, HttpStatus.OK);
+        } catch (ChatNotFoundException e) {
+            return new ResponseEntity<>("Chat Not Exists", HttpStatus.NOT_FOUND);
+        }
     }
 
     /**

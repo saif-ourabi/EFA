@@ -1,8 +1,6 @@
 package com.example.efabackend.entity;
-
 import jakarta.persistence.*;
 import java.util.List;
-
 @Entity
 @Table(name = "chat")
 public class Chat {
@@ -12,7 +10,7 @@ public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_id")
-    private Integer chatId;
+    private int chatId;
 
     @Column(name = "first_user_name", length = 255)
     private String firstUserName;
@@ -27,19 +25,25 @@ public class Chat {
     public Chat() {
     }
 
-    public Chat(String firstUserName, String secondUserName, List<Message> messageList) {
+    public Chat(int chatId, String firstUserName, String secondUserName, List<Message> messageList) {
+        this.chatId = chatId;
+        this.firstUserName = firstUserName;
+        this.secondUserName = secondUserName;
+        this.messageList = messageList;
+    }
+    public Chat( String firstUserName, String secondUserName, List<Message> messageList) {
         this.firstUserName = firstUserName;
         this.secondUserName = secondUserName;
         this.messageList = messageList;
     }
 
     // Getters and Setters
-    public Long getChatId() {
+    public int getChatId() {
         return chatId;
     }
 
-    public void setChatId(Integer chatId) {
-        this.chatId = chatId;
+    public void setChatId(int id) {
+        this.chatId=id;
     }
 
     public String getFirstUserName() {
