@@ -11,6 +11,11 @@ import { NgToastModule } from 'ng-angular-popup';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ListCoursComponent } from './components/list-cours/list-cours.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { QuizComponent } from './components/quiz/quiz.component';
 
@@ -23,6 +28,8 @@ import { QuizComponent } from './components/quiz/quiz.component';
     NavbarComponent,
     ListCoursComponent,
     QuizComponent 
+    FooterComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +39,12 @@ import { QuizComponent } from './components/quiz/quiz.component';
     DropdownModule,
     HttpClientModule,
     NgToastModule,
+    PdfViewerModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
 }
+platformBrowserDynamic().bootstrapModule(AppModule);

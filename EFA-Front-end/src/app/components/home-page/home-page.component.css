@@ -1,0 +1,8 @@
+a {
+  text-decoration: none ; /* Remove underline from all links */
+}
+
+/* Optionally, you can specify styles for hovered links */
+a:hover {
+  text-decoration: none ; /* Remove underline from hovered links */
+}

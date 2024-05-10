@@ -6,6 +6,9 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { ListCoursComponent } from './components/list-cours/list-cours.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 
+import { AdminComponent } from './components/admin/admin.component';
+
+
 const routes: Routes = [
   { path: '', component: HomePageComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -13,6 +16,7 @@ const routes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'lister', component: ListCoursComponent },
   { path: 'quiz/:cour', component: QuizComponent } // Removed the redundant route without parameter
+  { path: 'admin', component: AdminComponent }
 ];
 
 @NgModule({

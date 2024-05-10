@@ -1,4 +1,4 @@
-package com.example.efabackend.fileController;
+package com.example.efabackend.Controller.filleController;
 
 import com.example.efabackend.Dto.FileDto;
 import com.example.efabackend.entity.file;
