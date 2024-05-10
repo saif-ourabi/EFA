@@ -93,7 +93,6 @@ public Set<Chat> getChatsByUserName(String username) throws ChatNotFoundExceptio
                 return chat1;
     }
 
-    @Override
     public Chat addMessageToChat(Message message, int chatId) throws ChatNotFoundException {
         Optional<Chat> chatOptional = chatRepository.findById((long) chatId);
         Chat chat = chatOptional.orElseThrow(ChatNotFoundException::new);
@@ -102,6 +101,9 @@ public Set<Chat> getChatsByUserName(String username) throws ChatNotFoundExceptio
             chat.setMessageList(new ArrayList<>());
         }
     
+        // Ajouter le chat à la liste de messages du message
+        message.setChat(chat);
+        
         chat.getMessageList().add(message); // Ajouter le message à la liste de messages du chat
         return chatRepository.save(chat);
     }

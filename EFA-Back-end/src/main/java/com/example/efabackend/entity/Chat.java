@@ -1,6 +1,8 @@
 package com.example.efabackend.entity;
 import jakarta.persistence.*;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "chat")
 public class Chat {
@@ -19,6 +21,7 @@ public class Chat {
     private String secondUserName;
 
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    
     private List<Message> messageList;
 
     // Constructeurs
@@ -30,6 +33,7 @@ public class Chat {
         this.secondUserName = secondUserName;
         this.messageList = messageList;
     }
+    
 
     // Getters and Setters
     public Long getChatId() {
@@ -67,11 +71,23 @@ public class Chat {
     // Méthode toString()
     @Override
     public String toString() {
-        return "Chat{" +
-                "chatId=" + chatId +
-                ", firstUserName='" + firstUserName + '\'' +
-                ", secondUserName='" + secondUserName + '\'' +
-                ", messageList=" + messageList +
-                '}';
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Chat{")
+                .append("chatId=").append(chatId)
+                .append(", firstUserName='").append(firstUserName != null ? firstUserName : "null").append('\'')
+                .append(", secondUserName='").append(secondUserName != null ? secondUserName : "null").append('\'');
+        if (messageList != null) {
+            stringBuilder.append(", messageList=[");
+            for (Message message : messageList) {
+                stringBuilder.append("\n\t").append(message.toString());
+            }
+            stringBuilder.append("\n]");
+        } else {
+            stringBuilder.append(", messageList=null");
+        }
+        stringBuilder.append('}');
+        return stringBuilder.toString();
     }
+    
+    
 }
