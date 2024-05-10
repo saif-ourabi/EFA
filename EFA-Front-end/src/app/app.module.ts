@@ -17,6 +17,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { QuizComponent } from './components/quiz/quiz.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomePageComponent,
     NavbarComponent,
     ListCoursComponent,
+    QuizComponent 
     FooterComponent,
     AdminComponent
   ],

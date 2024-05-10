@@ -1,0 +1,26 @@
+<div class="container" >
+<div  *ngFor="let c of repp"  class="card mt-3">
+    
+    <div class="card-body">
+    <h5 class="card-text">{{c.question}}</h5>
+  
+
+    <div class="" *ngFor="let p of c.reponces.split('|')">
+        <div class="form-check">
+        <input class="form-check-input" type="radio" [name]="c.id" [value]="c.reponces.split('|').indexOf(p)" (click)="checkAnswer(c.rep, c.reponces.split('|').indexOf(p))">
+        <label class="form-check-label">{{p}}</label>
+        
+    </div>
+
+
+</div>
+</div>
+</div>
+<button class="btn btn-primary mt-3" (click)="showScore()">Show Score</button>
+<div *ngIf="scoreShown"class="mt-3"><h6>Score: {{ score }}/{{nb}}</h6></div>
+<div class="container">
+    <button class="btn btn-danger mt-3" (click)="resetRadioButtons()">supprimer les reponces </button>
+    <button class="btn btn-danger mt-3" (click)="resetAnswers()">Réinitialiser les réponses</button>
+  </div>
+  
+</div>

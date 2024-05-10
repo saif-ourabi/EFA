@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class RegistrationService {
 
   constructor(private http: HttpClient) {}
-  private url="http://localhost:8081/api/user/register"
+  private url="http://localhost:8087/api/user/register"
   registerUser(userData: any): Observable<any> {
     return this.http.post(this.url, userData);
   }

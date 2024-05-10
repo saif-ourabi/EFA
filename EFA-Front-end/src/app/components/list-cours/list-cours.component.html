@@ -12,6 +12,15 @@
 
 
 <body>
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-4 mb-3" *ngFor="let c of cours">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-text">course name: {{ c.nameFile }}</h5>
+            <img [src]="c.imgFile" alt="file img">
+            
+            <a [routerLink]="['/quiz', c.nameFile]">Quiz selon le cours {{ c.nameFile }}</a>
   <div class="container mx-auto mt-8">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="rounded-lg overflow-hidden shadow-lg bg-white card" *ngFor="let c of cours">
@@ -90,11 +99,8 @@
   </div>
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-<<<<<<< HEAD
       <h4 class="modal-title" id="modal-basic-title">Preview PDF : <b></b></h4>
-=======
       <h4 class="modal-title" id="modal-basic-title">Preview Invoice : <b></b></h4>
->>>>>>> origin/main
       <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
     </div>
     <div class="modal-body">
