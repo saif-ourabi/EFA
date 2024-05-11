@@ -46,6 +46,6 @@ public class userController {
         responseList.add(new CountResponse(enseignantCount, "Enseignant"));
         return ResponseEntity.ok(responseList);
     }
-g
+
 
 }
