@@ -1,28 +1,28 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(
-    !!sessionStorage.getItem('token')
-  );
-
-  constructor(private http: HttpClient) {}
-
-  private apiUrl = 'http://localhost:8081/api/user/login';
+  
+  private apiUrl = 'http://localhost:8081/api/user/';
   private authStatusSubject = new BehaviorSubject<boolean>(false);
   authStatus$ = this.authStatusSubject.asObservable();
 
+  constructor(private http: HttpClient) {}
+
   login(userData: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, userData).pipe(
+    return this.http.post<any>(`${this.apiUrl}login`, userData).pipe(
       tap((response: any) => {
         if (response.status) {
-          this.setSessionData(response);
+          this.setSessionData(response.token);
+          this.authStatusSubject.next(true);
+        } else {
+          this.authStatusSubject.next(false);
         }
-        this.authStatusSubject.next(response.status);
       }),
       catchError((error) => {
         console.error('Login failed:', error);
@@ -31,31 +31,45 @@ export class LoginService {
     );
   }
 
-  get isAuthenticated(): Observable<boolean> {
-    return this.isAuthenticatedSubject.asObservable();
-  }
-
-  checkAuthentication(): void {
+  getUserInfo(): Observable<any> {
     const token = sessionStorage.getItem('token');
-    const isAuthenticated = !!token;
-    this.isAuthenticatedSubject.next(isAuthenticated);
+    if (token) {
+      return this.http.get(`${this.apiUrl}decodeToken?token=${token}`).pipe(
+        catchError(error => {
+          console.error('Error decoding token:', error);
+          return throwError(error);
+        })
+      );
+    } else {
+      return of(null);
+    }
   }
-
-  private setSessionData(response: any): void {
-    sessionStorage.setItem('token', response.token);
-  }
-
+  
   logout(): void {
     sessionStorage.removeItem('token');
     this.authStatusSubject.next(false);
   }
 
   checkAuthStatus(): void {
-    const jwt_token = sessionStorage.getItem('token');
-    if (jwt_token) {
-      this.authStatusSubject.next(true);
-    } else {
-      this.authStatusSubject.next(false);
+    const jwtToken = sessionStorage.getItem('token');
+    if (jwtToken) {
+      this.http.get<any>(`${this.apiUrl}verify?token=${jwtToken}`).subscribe(
+        (response: any) => {
+          this.authStatusSubject.next(true);
+        },
+        (error) => {
+          console.error('Error checking authentication status:', error);
+          this.authStatusSubject.next(false);
+        }
+      );
     }
+  }
+
+  private setSessionData(token: string): void {
+    sessionStorage.setItem('token', token);
+  }
+
+  edit(userData: any): Observable<any> {
+    return this.http.put(this.apiUrl+'update',userData)
   }
 }

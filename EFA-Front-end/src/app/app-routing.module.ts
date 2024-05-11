@@ -6,6 +6,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { ListCoursComponent } from './components/list-cours/list-cours.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { DetailsComponent } from './components/details/details.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent,pathMatch:'full' },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'lister', component: ListCoursComponent },
   { path: 'admin', component: AdminComponent },
-  { path: 'details/:id', component: DetailsComponent }
+  { path: 'details/:id', component: DetailsComponent },
+  {path:'edit-profile',component:EditProfileComponent}
 
 
 ];

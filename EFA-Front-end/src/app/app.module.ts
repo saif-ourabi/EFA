@@ -17,6 +17,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DetailsComponent } from './components/details/details.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DetailsComponent } from './components/details/details.component';
     ListCoursComponent,
     FooterComponent,
     AdminComponent,
-    DetailsComponent
+    DetailsComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
