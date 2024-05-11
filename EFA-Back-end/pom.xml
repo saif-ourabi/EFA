@@ -81,6 +81,7 @@
 			<version>7.10.1</version>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>

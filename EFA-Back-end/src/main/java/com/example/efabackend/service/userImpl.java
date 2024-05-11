@@ -60,6 +60,14 @@ public class userImpl implements userService {
         }
     }
 
+    @Override
+    public long countByRole(String role) {
+        return userRepo.countByRole(role);
+    }
+
+
+
+
 
 
 

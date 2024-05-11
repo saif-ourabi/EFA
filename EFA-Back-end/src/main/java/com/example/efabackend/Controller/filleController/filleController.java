@@ -43,17 +43,23 @@ public class filleController {
         }
     }
 
-    @PutMapping("/{id}/{nameFile}/{imgFile}/{urlFile}")
-    public ResponseEntity<file> updateFile(@PathVariable Long id, @PathVariable String nameFile, @PathVariable String imgFile, @PathVariable String urlFile) {
-        file file = fs.getFileById(id);
-        if (file == null) {
-            throw new FileNotFoundException("File not found with id: " + id);
-        } else {
-            byte[] urlFileBytes = Base64.getDecoder().decode(urlFile);
-            file = fs.updateFile(id, nameFile, imgFile, urlFileBytes);
-            return ResponseEntity.ok(file);
+    @PutMapping("/updateFile")
+    public ResponseEntity<file> updateFile(@RequestBody FileDto updatedFileDto) {
+        file existingFile = fs.getFileById(updatedFileDto.getId());
+        if (existingFile == null) {
+            throw new FileNotFoundException("File not found with id: " + updatedFileDto.getId());
         }
+
+        existingFile.setNameFile(updatedFileDto.getNameFile());
+        existingFile.setImgFile(updatedFileDto.getImgFile());
+        existingFile.setUrlFile(updatedFileDto.getUrlFile());
+
+        // Save the updated file
+        file updatedEntity = fs.updateFile(existingFile);
+        return ResponseEntity.ok(updatedEntity);
     }
+
+
     @PostMapping("/addFile")
     public ResponseEntity<file> addFile(@RequestBody FileDto file) {
         file f = new file(file.getNameFile(),file.getImgFile(),file.getUrlFile());

@@ -8,7 +8,7 @@ public interface fileService {
     List<file> getAllFiles();
     file getFileById(Long id);
     List<file> findFilesByNameFile(String nameFile);
-    file updateFile(Long id, String nameFile, String imgFile, byte[] urlFile);
+    file updateFile(file updatedFile);
     void deleteFile(Long id);
 
     file addFile(file file);

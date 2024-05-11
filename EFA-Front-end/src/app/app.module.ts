@@ -16,6 +16,12 @@ import { AdminComponent } from './components/admin/admin.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CrudcoursComponent } from './components/crudcours/crudcours.component';
+import { CrudusersComponent } from './components/crudusers/crudusers.component';
+import { AddFileComponent } from './components/add-file/add-file.component';
+import { UpdateFileComponent } from './components/update-file/update-file.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +32,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NavbarComponent,
     ListCoursComponent,
     FooterComponent,
-    AdminComponent
+    AdminComponent,
+    DashboardComponent,
+    CrudcoursComponent,
+    CrudusersComponent,
+    AddFileComponent,
+    UpdateFileComponent,
+    
   ],
   imports: [
     BrowserModule,

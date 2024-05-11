@@ -1,6 +1,7 @@
 package com.example.efabackend.entity;
 
 import jakarta.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "User")
@@ -22,6 +23,8 @@ public class User {
 
     @Column(name = "role",length = 255)
     private String role;
+
+
 
 
     public User(long id, String email, String password, String name, String role) {
@@ -81,6 +84,7 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
 
     @Override
     public String toString() {

@@ -28,11 +28,28 @@
                     </li>
                 </ul>
                 <hr>
-              
             </div>
         </div>
         <div class="col py-3">
-            <app-dashboard></app-dashboard>
+            <form #fileForm="ngForm">
+                <div class="form-group">
+                    <label for="idInput">Id File:</label>
+                    <input type="text" class="form-control" id="idInput" name="id" [(ngModel)]="id" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="nameInput">Name File:</label>
+                    <input type="text" class="form-control" id="nameInput" name="nameFile" [(ngModel)]="nameFile" required>
+                </div>
+                <div class="form-group">
+                    <label for="imgInput">Img File:</label>
+                    <input type="text" class="form-control" id="imgInput" name="imgFile" [(ngModel)]="imgFile" required>
+                </div>
+                <div class="form-group">
+                    <label for="urlInput">Url File:</label>
+                    <input type="text" class="form-control" id="urlInput" name="urlFile" [(ngModel)]="urlFile" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
         </div>
     </div>
 </div>

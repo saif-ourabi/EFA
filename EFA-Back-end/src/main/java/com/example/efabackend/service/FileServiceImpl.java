@@ -30,17 +30,17 @@ public class FileServiceImpl implements fileService {
     }
 
     @Override
-    public file updateFile(Long id, String nameFile, String imgFile, byte[] urlFile) {
-        Optional<file> optionalFile = fileRepository.findById(id);
+    public file updateFile(file updatedFile) {
+        Optional<file> optionalFile = fileRepository.findById(updatedFile.getId());
         if (optionalFile.isEmpty()) {
-            throw new FileNotFoundException("File with this id " + id + " not found");
+            throw new FileNotFoundException("File with this id " + updatedFile.getId() + " not found");
         } else {
-            file file = optionalFile.get();
-            file.setNameFile(nameFile);
-            file.setImgFile(imgFile);
-            file.setUrlFile(urlFile);
-            fileRepository.save(file);
-            return file;
+            file existingFile = optionalFile.get();
+            existingFile.setNameFile(updatedFile.getNameFile());
+            existingFile.setImgFile(updatedFile.getImgFile());
+            existingFile.setUrlFile(updatedFile.getUrlFile());
+            fileRepository.save(existingFile);
+            return existingFile;
         }
     }
 
@@ -57,5 +57,7 @@ public class FileServiceImpl implements fileService {
     public file addFile(file file) {
         return fileRepository.save(file);
     }
+
+
 
 }

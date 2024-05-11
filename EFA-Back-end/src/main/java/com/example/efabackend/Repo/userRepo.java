@@ -13,4 +13,5 @@ public interface userRepo extends JpaRepository<User, Long> {
     Optional<User> findOneByEmailAndPassword(String email, String password);
     User findByEmail(String Email);
 
+    long countByRole(String role);
 }

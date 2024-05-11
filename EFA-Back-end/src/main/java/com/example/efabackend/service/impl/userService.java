@@ -9,4 +9,6 @@ public interface userService {
 
     RegisterResponse addUser(RegisterDto registerDTO);
     LoginResponse loginUser (LoginDto loginDto);
+    long countByRole(String role);
+
 }

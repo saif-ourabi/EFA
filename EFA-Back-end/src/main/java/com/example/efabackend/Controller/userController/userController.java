@@ -1,6 +1,7 @@
 package com.example.efabackend.Controller.userController;
 import com.example.efabackend.Dto.LoginDto;
 import com.example.efabackend.Dto.RegisterDto;
+import com.example.efabackend.response.CountResponse;
 import com.example.efabackend.response.LoginResponse;
 import com.example.efabackend.response.RegisterResponse;
 import com.example.efabackend.service.JwtService;
@@ -8,6 +9,9 @@ import com.example.efabackend.service.impl.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -33,5 +37,15 @@ public class userController {
         return JwtService.generateToken(username);
     }
 
+    @GetMapping("/countByRole")
+    public ResponseEntity<List<CountResponse>> countByRole() {
+        long etudiantCount = userservice.countByRole("Etudiant");
+        long enseignantCount = userservice.countByRole("Enseignant");
+        List<CountResponse> responseList = new ArrayList<>();
+        responseList.add(new CountResponse(etudiantCount, "Etudiant"));
+        responseList.add(new CountResponse(enseignantCount, "Enseignant"));
+        return ResponseEntity.ok(responseList);
+    }
+g
 
 }
