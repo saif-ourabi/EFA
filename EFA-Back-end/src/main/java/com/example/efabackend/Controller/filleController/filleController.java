@@ -43,18 +43,19 @@ public class filleController {
         }
     }
 
-    @PutMapping("/updateFile")
-    public ResponseEntity<file> updateFile(@RequestBody FileDto updatedFileDto) {
-        file existingFile = fs.getFileById(updatedFileDto.getId());
+    @PutMapping("/updateFile/{id}")
+    public ResponseEntity<file> updateFile(@PathVariable Long id, @RequestBody FileDto updatedFileDto) {
+        file existingFile = fs.getFileById(id);
         if (existingFile == null) {
-            throw new FileNotFoundException("File not found with id: " + updatedFileDto.getId());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         existingFile.setNameFile(updatedFileDto.getNameFile());
         existingFile.setImgFile(updatedFileDto.getImgFile());
-        existingFile.setUrlFile(updatedFileDto.getUrlFile());
 
-        // Save the updated file
+        // Assuming urlFile is sent as a base64 encoded string
+        existingFile.setUrlFile(Base64.getDecoder().decode(updatedFileDto.getUrlFile()));
+
         file updatedEntity = fs.updateFile(existingFile);
         return ResponseEntity.ok(updatedEntity);
     }

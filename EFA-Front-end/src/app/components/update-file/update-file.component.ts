@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CoursService } from 'src/app/services/cours.service';
 
 @Component({
   selector: 'app-update-file',
@@ -13,32 +13,34 @@ export class UpdateFileComponent implements OnInit {
   imgFile: string;
   urlFile: string;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private coursService: CoursService
+  ) {}
 
   ngOnInit(): void {
-    // Retrieve the file ID from the route parameter
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      // Fetch the file details using the ID (you need to implement this)
-      this.fetchFileDetails();
     });
   }
 
-  fetchFileDetails(): void {
-    // Implement this method to fetch file details from your service
-    // Example:
-    // this.fileService.getFileById(this.id).subscribe(
-    //   response => {
-    //     this.nameFile = response.nameFile;
-    //     this.imgFile = response.imgFile;
-    //     this.urlFile = response.urlFile;
-    //   },
-    //   error => {
-    //     console.error('Error fetching file details:', error);
-    //     // Handle error message display or other actions
-    //   }
-    // );
+  updateFile(): void {
+    const updatedFileData = {
+      id: this.id,
+      nameFile: this.nameFile,
+      imgFile: this.imgFile,
+      urlFile: this.urlFile
+    };
+
+    this.coursService.updateFile(this.id, updatedFileData).subscribe(
+      response => {
+        console.log('File updated successfully:', response);
+        this.router.navigate(['/crudcours']); // Replace with your desired route
+      },
+      error => {
+        console.error('Error updating file:', error);
+      }
+    );
   }
-
-
 }

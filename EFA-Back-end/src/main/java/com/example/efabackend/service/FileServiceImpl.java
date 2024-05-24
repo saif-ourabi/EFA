@@ -39,8 +39,7 @@ public class FileServiceImpl implements fileService {
             existingFile.setNameFile(updatedFile.getNameFile());
             existingFile.setImgFile(updatedFile.getImgFile());
             existingFile.setUrlFile(updatedFile.getUrlFile());
-            fileRepository.save(existingFile);
-            return existingFile;
+            return fileRepository.save(existingFile);
         }
     }
 

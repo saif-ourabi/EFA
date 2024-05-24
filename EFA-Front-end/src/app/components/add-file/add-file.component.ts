@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { CoursService } from 'src/app/services/cours.service';
 
 @Component({
@@ -9,12 +7,12 @@ import { CoursService } from 'src/app/services/cours.service';
   styleUrls: ['./add-file.component.css']
 })
 export class AddFileComponent {
-  id: string;
-  nameFile: string;
-  imgFile: string;
-  urlFile: string;
+  id: string = '';
+  nameFile: string = '';
+  imgFile: string = '';
+  urlFile: string = '';
 
-  constructor(private http: HttpClient, private coursService: CoursService) {}
+  constructor(private coursService: CoursService) {}
 
   addFile(): void {
     const formData = {
@@ -27,11 +25,8 @@ export class AddFileComponent {
     this.coursService.addFile(formData).subscribe(
       response => {
         console.log('File added successfully:', response);
-        // Reset form fields after successful submission if needed
-        this.id = '';
-        this.nameFile = '';
-        this.imgFile = '';
-        this.urlFile = '';
+        // Reset form fields after successful submission
+        this.resetForm();
       },
       error => {
         console.error('Error adding file:', error);
@@ -40,5 +35,10 @@ export class AddFileComponent {
     );
   }
 
-  
+  resetForm(): void {
+    this.id = '';
+    this.nameFile = '';
+    this.imgFile = '';
+    this.urlFile = '';
+  }
 }
