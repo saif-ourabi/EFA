@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgToastService } from 'ng-angular-popup';
 import { CoursService } from 'src/app/services/cours.service';
+import { LoginService } from 'src/app/services/login.service';
 import { RatingService } from 'src/app/services/rating.service';
 
 @Component({
@@ -12,15 +13,22 @@ import { RatingService } from 'src/app/services/rating.service';
   styleUrls: ['./list-cours.component.css']
 })
 export class ListCoursComponent implements OnInit {
+  user:any
   cours = [];
   pdfurl=""
   feedbackform:FormGroup
-  constructor(private course: CoursService, private toast: NgToastService, private router: Router,private modalservice: NgbModal,private formBuilder: FormBuilder,private rate:RatingService) {
+  constructor(private course: CoursService, 
+    private toast: NgToastService, 
+    private router: Router,
+    private modalservice: NgbModal,
+    private formBuilder: FormBuilder,
+    private rate:RatingService,
+    private authService: LoginService) {
     this.feedbackform = this.formBuilder.group({
       fileId: ['', Validators.required],
       stars: [, [Validators.required]],
       description: ['', Validators.required],
-      email: ["ourabisaifallah@gmail.com", Validators.required]
+      email: [""]
     });
 
   }
@@ -31,6 +39,10 @@ export class ListCoursComponent implements OnInit {
     this.course.getefiles().subscribe((rep) => {
       this.cours = rep;
     });
+    this.authService.getUserInfo().subscribe((rep)=>{
+      this.user=rep
+      console.log(rep)
+    })
   }
 
   downloadPDF(pdf) {
@@ -68,9 +80,10 @@ export class ListCoursComponent implements OnInit {
   }
   submit(){
     {
+      console.log(this.user)
+      this.feedbackform.get("email").setValue(this.user.email)
       this.rate.addRating(this.feedbackform.value).subscribe((rep)=>
       {
-        this.popupview1.nativeElement()
         console.log(this.feedbackform.value)
         console.log(rep)
       })

@@ -14,7 +14,10 @@ export class LoginComponent {
   c = false;
   loginError = '';
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService,private toast: NgToastService,private router: Router) {
+  constructor(private formBuilder: FormBuilder, 
+    private loginService: LoginService,
+    private toast: NgToastService,
+    private router: Router) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
